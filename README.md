@@ -19,7 +19,7 @@ Quick_Sort/
 │           └── .gitkeep
 ── source/
 │   ├── algoritmo/              # Lógica de Quick Sort y métricas
-  ├── experimento/            # Generación de datos y ejecución de experimentos
+│   ├── experimento/            # Generación de datos y ejecución de experimentos
 │   └── graphics/               # Generación de visualizaciones
 ├── test/
 │   ├──test_data_generator.py
