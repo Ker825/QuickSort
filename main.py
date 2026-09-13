@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from source.algoritmo.quick_sort import QuickSort
+from source.configuracion import ConfiguracionExperimento
 from source.experimento.cvsv_writer import CsvWriter
 from source.experimento.data_generator import DataGenerator
 from source.experimento.experiment_runner import ExperimentRunner
@@ -8,31 +9,38 @@ from source.graphics.graficador import Graficador
 from source.graphics.visualizador_csv import CargadorResultados
 
 
-def main():
+def main() -> None:
+    config = ConfiguracionExperimento()
     ruta_tiempos = Path("output/resultados/cvs/tiempos.csv")
     ruta_operaciones = Path("output/resultados/cvs/operaciones.csv")
     directorio_graficas = Path("output/resultados/graficas")
     directorio_graficas.mkdir(parents=True, exist_ok=True)
 
-    tamanos = [100, 200, 500, 1000, 2000]
-    repeticiones = 30
-
-    instrumentador = QuickSort()
+    instrumentador = QuickSort()  # type: ignore[no-untyped-call]
     runner = ExperimentRunner(sorter=instrumentador)
 
     # 1. Caso Favorable (Mejor Caso)
     runner.ejecutar_caso(
-        "Mejor Caso", DataGenerator.generar_mejor_caso, tamanos, repeticiones
+        "Mejor Caso",
+        DataGenerator.generar_mejor_caso,
+        list(config.tamanos),
+        config.repeticiones,
     )
 
     # 2. Caso Promedio (Aleatorio)
     runner.ejecutar_caso(
-        "Promedio", DataGenerator.generar_caso_promedio, tamanos, repeticiones
+        "Promedio",
+        DataGenerator.generar_caso_promedio,
+        list(config.tamanos),
+        config.repeticiones,
     )
 
     # 3. Peor Caso (Ordenado)
     runner.ejecutar_caso(
-        "Peor Caso", DataGenerator.generar_peor_caso, tamanos, repeticiones
+        "Peor Caso",
+        DataGenerator.generar_peor_caso,
+        list(config.tamanos),
+        config.repeticiones,
     )
 
     # 4. Guardar archivos finales
@@ -59,7 +67,10 @@ def main():
     graficador.graficar_exp_vs_teoria(df_tiempos, ruta_salida3)
 
     print(
-        f"Gráfica generada exitosamente en: \n| {ruta_salida} | \n| {ruta_salida2} | \n| {ruta_salida3} |"  # noqa: E501
+        "Gráficas generadas exitosamente en:\n"
+        f"- | {ruta_salida} |\n"
+        f"- | {ruta_salida2} |\n"
+        f"- | {ruta_salida3} |"
     )
 
 

@@ -9,10 +9,10 @@ from .visualizador_csv import CargadorResultados
 
 
 class Graficador:
-    def __init__(self):
+    def __init__(self) -> None:
         self.cargador = CargadorResultados(
-            ruta_tiempos="output/resultados/csvs/tiempos.csv",
-            ruta_operaciones="output/resultados/cvs/operaciones.csv",
+            ruta_tiempos="output/resultados/csv/tiempos.csv",
+            ruta_operaciones="output/resultados/csv/operaciones.csv",
         )  # noqa: E501
         self.df_tiempos = self.cargador.cargar_tiempos_agrupados()
         self.df_operaciones = self.cargador.cargar_operaciones_agrupadas()

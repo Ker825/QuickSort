@@ -2,24 +2,20 @@ from .metricas import MetricasQuickSort
 
 
 class QuickSort:
-    def __init__(self):
+    def __init__(self) -> None:
         self.metricas = MetricasQuickSort()
 
     def reiniciar_metricas(self) -> None:
         self.metricas = MetricasQuickSort()
 
-    def ordenar(self, lista: list[int], f: int, l: int):  # noqa: E741
+    def ordenar(self, lista: list[int], f: int, l: int) -> None:  # noqa: E741
         """
-        Ordena una sublista in-place utilizando el algoritmo Quick Sort
-        Y registra metricas importan`tes
+        Ordena una sublista in-place utilizando Quick Sort.
 
         Args:
-        arr: La lista de elementos a ordenar.
-        f: Índice inicial de la sublista.
-        l: Índice final (inclusivo) de la sublista.
-
-        Returns:
-            list[int]: retorna una lista ordenada de numeros
+            lista: Lista de enteros que será modificada.
+            f: Índice inicial de la sublista.
+            l: Índice final inclusivo de la sublista.
         """
         # Conteo de llamadas recursivas
         self.metricas.llamadas_recursivas += 1

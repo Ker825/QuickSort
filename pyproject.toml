@@ -14,7 +14,21 @@ dependencies = [
 module = ["untyped_package.*"]
 follow_untyped_imports = true
 
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+
 [dependency-groups]
 dev = [
+    "mypy>=1.17",
     "pandas-stubs>=3.0.5.260730",
+    "pytest>=8.4",
+    "ruff>=0.12",
 ]
