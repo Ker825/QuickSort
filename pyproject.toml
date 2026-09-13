@@ -1,0 +1,20 @@
+[project]
+name = "quick-sort"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.11.1",
+    "pandas>=3.0.5",
+]
+
+
+[[tool.mypy.overrides]]
+module = ["untyped_package.*"]
+follow_untyped_imports = true
+
+[dependency-groups]
+dev = [
+    "pandas-stubs>=3.0.5.260730",
+]
