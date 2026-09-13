@@ -9,7 +9,6 @@ wheels/
 # Virtual environments
 .venv
 
-
 # Ignorar el contenido generado en output
 output/resultados/cvs/*
 output/resultados/graficas/*

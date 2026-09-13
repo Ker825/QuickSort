@@ -11,7 +11,7 @@ from .visualizador_csv import CargadorResultados
 class Graficador:
     def __init__(self):
         self.cargador = CargadorResultados(
-            ruta_tiempos="output/resultados/cvs/tiempos.csv",
+            ruta_tiempos="output/resultados/csvs/tiempos.csv",
             ruta_operaciones="output/resultados/cvs/operaciones.csv",
         )  # noqa: E501
         self.df_tiempos = self.cargador.cargar_tiempos_agrupados()

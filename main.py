@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from source.algoritmo.quick_sort import QuickSort
-from source.experimento.cvs_writer import CsvWriter
+from source.experimento.cvsv_writer import CsvWriter
 from source.experimento.data_generator import DataGenerator
 from source.experimento.experiment_runner import ExperimentRunner
 from source.graphics.graficador import Graficador
@@ -36,8 +36,8 @@ def main():
     )
 
     # 4. Guardar archivos finales
-    cvs_writter = CsvWriter()
-    cvs_writter.guardar_csv(runner)
+    csv_writer = CsvWriter()
+    csv_writer.guardar_csv(runner)
 
     cargador = CargadorResultados(ruta_tiempos, ruta_operaciones)
     df_tiempos = cargador.cargar_tiempos_agrupados(usar_mediana=False)
@@ -59,7 +59,7 @@ def main():
     graficador.graficar_exp_vs_teoria(df_tiempos, ruta_salida3)
 
     print(
-        f"Gráfica generada exitosamente en: \n| {ruta_salida} | \n| {ruta_salida2} | \n| {ruta_salida2} |"  # noqa: E501
+        f"Gráfica generada exitosamente en: \n| {ruta_salida} | \n| {ruta_salida2} | \n| {ruta_salida3} |"  # noqa: E501
     )
 
 
