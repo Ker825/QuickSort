@@ -2,7 +2,7 @@ from pathlib import Path
 
 from source.algoritmo.quick_sort import QuickSort
 from source.configuracion import ConfiguracionExperimento
-from source.experimento.cvsv_writer import CsvWriter
+from source.experimento.csv_writer import CsvWriter
 from source.experimento.data_generator import DataGenerator
 from source.experimento.experiment_runner import ExperimentRunner
 from source.graphics.graficador import Graficador
