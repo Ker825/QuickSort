@@ -5,7 +5,7 @@ from source.experimento.experiment_runner import ExperimentRunner
 
 
 class CsvWriter:
-    def __init__(self, directorio_salida: str = "output/resultados/cvs"):
+    def __init__(self, directorio_salida: str = "output/resultados/csv") -> None:
         self.directorio_salida = Path(directorio_salida)
         self.directorio_salida.mkdir(parents=True, exist_ok=True)
 

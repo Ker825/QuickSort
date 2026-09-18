@@ -11,12 +11,12 @@ from source.graphics.visualizador_csv import CargadorResultados
 
 def main() -> None:
     config = ConfiguracionExperimento()
-    ruta_tiempos = Path("output/resultados/cvs/tiempos.csv")
-    ruta_operaciones = Path("output/resultados/cvs/operaciones.csv")
+    ruta_tiempos = Path("output/resultados/csv/tiempos.csv")
+    ruta_operaciones = Path("output/resultados/csv/operaciones.csv")
     directorio_graficas = Path("output/resultados/graficas")
     directorio_graficas.mkdir(parents=True, exist_ok=True)
 
-    instrumentador = QuickSort()  # type: ignore[no-untyped-call]
+    instrumentador = QuickSort()
     runner = ExperimentRunner(sorter=instrumentador)
 
     # 1. Caso Favorable (Mejor Caso)
