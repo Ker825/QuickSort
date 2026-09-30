@@ -1,6 +1,6 @@
 from pathlib import Path
 
-import pandas as pd  # type: ignore[import-untyped]
+import pandas as pd
 
 
 class CargadorResultados:

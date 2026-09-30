@@ -10,6 +10,9 @@ from .models.registro_tiempo import RegistroTiempo
 # Prevenir RecursionError en el peor caso para n >= 1000
 sys.setrecursionlimit(50_000)
 
+# Definición de tipo para el callback: (nombre_caso, n, repeticion_actual, total_repeticiones) -> None  # noqa: E501
+ProgresoCallback = Callable[[str, int, int, int], None]
+
 
 class ExperimentRunner:
     """Orquestador de pruebas de rendimiento y recolección de métricas."""
@@ -26,6 +29,7 @@ class ExperimentRunner:
         generador_fn: Callable[[int], list[int]],
         tamanos: list[int],
         repeticiones: int = 10,
+        al_iterar: ProgresoCallback | None = None,
     ) -> None:
         """
         Ejecuta la suite para un caso específico a través de distintos tamaños n.
@@ -46,9 +50,8 @@ class ExperimentRunner:
 
                 duracion = fin - inicio
 
-                print(
-                    f"Ejecutando {nombre_caso} para n={n} (repetición {rep}/{repeticiones})..."
-                )
+                if al_iterar:
+                    al_iterar(nombre_caso, n, rep, repeticiones)
 
                 # 4. Almacenar resultados
                 self.registros_tiempos.append(
