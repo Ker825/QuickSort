@@ -2,15 +2,23 @@ from .metricas import MetricasQuickSort
 
 
 class QuickSort:
+    """Implementación del algoritmo de ordenamiento Quick Sort con seguimiento de métricas.
+
+    Esta clase permite ordenar listas de enteros utilizando el algoritmo Quick Sort,
+    al mismo tiempo que registra estadísticas sobre la ejecución como el número
+    de comparaciones, intercambios y llamadas recursivas.
+    """  # noqa: E501
+
     def __init__(self) -> None:
+        """Inicializa una nueva instancia de QuickSort con métricas en cero."""
         self.metricas = MetricasQuickSort()
 
     def reiniciar_metricas(self) -> None:
+        """Restablece los contadores de métricas a sus valores iniciales."""
         self.metricas = MetricasQuickSort()
 
     def ordenar(self, lista: list[int], f: int, l: int) -> None:  # noqa: E741
-        """
-        Ordena una sublista in-place utilizando Quick Sort.
+        """Ordena una sublista in-place utilizando el algoritmo Quick Sort.
 
         Args:
             lista: Lista de enteros que será modificada.
