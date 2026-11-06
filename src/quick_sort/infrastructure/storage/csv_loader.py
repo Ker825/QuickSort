@@ -27,7 +27,7 @@ class CargadorResultados:
             ruta_tiempos: Ubicación de tiempos.csv.
             ruta_operaciones: Ubicación de operaciones.csv.
         """
-        # [LÍNEA CLAVE] Normalización a Path para soporte multiplataforma
+        # Normalización a Path para soporte multiplataforma
         self.ruta_tiempos = Path(ruta_tiempos)
         self.ruta_operaciones = Path(ruta_operaciones)
 
@@ -54,7 +54,7 @@ class CargadorResultados:
             )
 
         try:
-            # [LÍNEA CLAVE] Lectura tabular del CSV mediante Pandas
+            # Lectura tabular del CSV mediante Pandas
             df = pd.read_csv(self.ruta_tiempos)
         except Exception as exc:
             raise PersistenciaDatosError(
@@ -67,10 +67,10 @@ class CargadorResultados:
                 f"El archivo {self.ruta_tiempos} debe contener las columnas {columnas_requeridas}"
             )
 
-        # [LÍNEA CLAVE] Agrupación por clave compuesta (tamano, caso)
+        # Agrupación por clave compuesta (tamano, caso)
         agrupador = df.groupby(["tamano", "caso"], as_index=False)[["tiempo_segundos"]]
 
-        # [LÍNEA CLAVE] Agregación estadística: la mediana es más robusta frente a outliers de SO
+        # Agregación estadística: la mediana es más robusta frente a outliers de SO
         df_resumen = agrupador.median() if usar_mediana else agrupador.mean()
 
         return df_resumen
@@ -110,13 +110,13 @@ class CargadorResultados:
             "iteraciones",
             "llamadas",
         ]
-        columnas_requeridas = set(["tamano", "caso"] + columnas_metricas)
+        columnas_requeridas = {"tamano", "caso", *columnas_metricas}
         if not columnas_requeridas.issubset(df.columns):
             raise DatosInsuficientesError(
                 f"El archivo {self.ruta_operaciones} debe contener {columnas_requeridas}"
             )
 
-        # [LÍNEA CLAVE] Agregación multivariable agrupada por tamaño y escenario
+        # Agregación multivariable agrupada por tamaño y escenario
         agrupador = df.groupby(["tamano", "caso"], as_index=False)[columnas_metricas]
         df_resumen = agrupador.median() if usar_mediana else agrupador.mean()
 

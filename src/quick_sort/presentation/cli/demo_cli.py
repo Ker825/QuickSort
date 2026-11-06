@@ -59,19 +59,18 @@ def demostrar_caso(
     consola.print()
     consola.print(Rule(f"[bold cyan]▶ Escenario: {nombre}[/bold cyan]", style="cyan"))
 
-    # [LÍNEA CLAVE] Clonación para preservar la lista original intacta ante mutaciones in-place
+    # Clonación para preservar la lista original intacta ante mutaciones in-place
     lista_trabajo = lista_original.copy()
 
-    # [LÍNEA CLAVE] Instanciación del ordenador instrumentado con árbol de llamadas
+    # Instanciación del ordenador instrumentado con árbol de llamadas
     sorter = QuickSortVisual()
     sorter.ordenar(lista_trabajo, 0, len(lista_trabajo) - 1)
 
     # Verificación estricta de invariante de ordenamiento
-    assert lista_trabajo == sorted(lista_original), (
-        "Error: el resultado no coincide con sorted()"
-    )
+    if lista_trabajo != sorted(lista_original):
+        raise AssertionError("Error: el resultado no coincide con sorted()")
 
-    # [LÍNEA CLAVE] Construcción y renderizado del árbol jerárquico de recursión
+    # Construcción y renderizado del árbol jerárquico de recursión
     consola.print()
     consola.print("[bold yellow]Jerarquía del Árbol de Recursión:[/bold yellow]")
 
@@ -125,7 +124,7 @@ def ejecutar_demostracion(consola: Console | None = None) -> None:
     """
     c = consola or console
 
-    # [LÍNEA CLAVE] Limpieza de terminal para una presentación inmersiva
+    # Limpieza de terminal para una presentación inmersiva
     c.clear()
 
     # 1. Despliegue de banners explicativos

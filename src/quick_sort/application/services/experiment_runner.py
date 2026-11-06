@@ -19,7 +19,7 @@ from quick_sort.domain.protocols import (
 
 __all__ = ["ExperimentRunner", "ProgresoCallback"]
 
-# [LÍNEA CLAVE] CPython limita el call stack a 1000 frames por defecto.
+# CPython limita el call stack a 1000 frames por defecto.
 # En el peor caso de Quick Sort, la recursión degenera a profundidad O(n).
 # Para soportar n = 10_000 en el peor caso sin desbordar el stack, elevamos el límite a 50_000.
 sys.setrecursionlimit(50_000)
@@ -40,7 +40,7 @@ class ExperimentRunner:
         Args:
             sorter (SorterProtocol): Implementación del algoritmo a evaluar.
         """
-        # [LÍNEA CLAVE] Inyección de dependencias (DIP): depende del protocolo, no de la clase concreta
+        # Inyección de dependencias (DIP): depende del protocolo, no de la clase concreta
         self.sorter = sorter
         self.registros_tiempos: list[RegistroTiempo] = []
         self.registros_operaciones: list[RegistroOperacion] = []
@@ -77,23 +77,23 @@ class ExperimentRunner:
         """
         for n in tamanos:
             for rep in range(1, repeticiones + 1):
-                # [LÍNEA CLAVE] Generación externa al cronómetro: excluye el tiempo de CPU del generador
+                # Generación externa al cronómetro: excluye el tiempo de CPU del generador
                 datos_base = generador_fn(n)
 
-                # [LÍNEA CLAVE] Copia superficial: Quick Sort muta el arreglo in-place
+                # Copia superficial: Quick Sort muta el arreglo in-place
                 datos_prueba = datos_base.copy()
 
-                # [LÍNEA CLAVE] Reseteo de métricas para garantizar idempotencia entre corridas
+                # Reseteo de métricas para garantizar idempotencia entre corridas
                 self.sorter.reiniciar_metricas()
 
-                # [LÍNEA CLAVE] perf_counter: reloj monotónico de hardware inmune a ajustes de reloj del sistema
+                # perf_counter: reloj monotónico de hardware inmune a ajustes de reloj del sistema
                 inicio = time.perf_counter()
                 self.sorter.ordenar(datos_prueba, 0, len(datos_prueba) - 1)
                 fin = time.perf_counter()
 
                 duracion = fin - inicio
 
-                # [LÍNEA CLAVE] Telemetría desacoplada: notifica avance a la UI sin depender de Rich/print
+                # Telemetría desacoplada: notifica avance a la UI sin depender de Rich/print
                 if al_iterar is not None:
                     al_iterar(nombre_caso, n, rep, repeticiones)
 

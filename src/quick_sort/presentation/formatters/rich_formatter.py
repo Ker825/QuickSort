@@ -71,7 +71,7 @@ class RichVisualFormatter:
         Returns:
             Tree: Componente imprimible de Rich con colores contextuales e iconografía.
         """
-        # [LÍNEA CLAVE] Renderizado diferenciado para Caso Base (hojas del árbol)
+        # Renderizado diferenciado para Caso Base (hojas del árbol)
         if nodo.es_caso_base:
             etiqueta_hoja = (
                 f"[dim]Sublista:[/dim] [white]{nodo.sublista}[/white]\n"
@@ -80,7 +80,7 @@ class RichVisualFormatter:
             )
             return Tree(etiqueta_hoja, guide_style="bright_green")
 
-        # [LÍNEA CLAVE] Resaltado del pivote y metadatos de partición para nodos activos
+        # Resaltado del pivote y metadatos de partición para nodos activos
         etiqueta_nodo = (
             f"[bold]Sublista:[/bold] [yellow]{nodo.sublista}[/yellow]\n"
             f"  [bold gold1]Pivote:[/bold gold1] [bold white on dark_goldenrod] {nodo.pivote} [/] "
@@ -90,7 +90,7 @@ class RichVisualFormatter:
 
         arbol = Tree(etiqueta_nodo, guide_style="bright_cyan")
 
-        # [LÍNEA CLAVE] Rama izquierda: partición de elementos menores o iguales al pivote
+        # Rama izquierda: partición de elementos menores o iguales al pivote
         if nodo.izquierda is not None:
             rama_izq = arbol.add(
                 "[bold bright_blue]◀ Partición Izquierda[/bold bright_blue] "
@@ -100,7 +100,7 @@ class RichVisualFormatter:
             subarbol_izq = RichVisualFormatter.construir_arbol_recursion(nodo.izquierda)
             rama_izq.children.append(subarbol_izq)
 
-        # [LÍNEA CLAVE] Rama derecha: partición de elementos mayores o iguales al pivote
+        # Rama derecha: partición de elementos mayores o iguales al pivote
         if nodo.derecha is not None:
             rama_der = arbol.add(
                 "[bold bright_magenta]Partición Derecha ▶[/bold bright_magenta] "

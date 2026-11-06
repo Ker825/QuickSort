@@ -31,7 +31,7 @@ class Graficador:
             ruta_tiempos: Ruta por defecto si no se inyecta cargador.
             ruta_operaciones: Ruta por defecto si no se inyecta cargador.
         """
-        # [LÍNEA CLAVE] Inversión de dependencias (DIP) con valor por defecto
+        # Inversión de dependencias (DIP) con valor por defecto
         self.cargador = cargador or CargadorResultados(
             ruta_tiempos=ruta_tiempos,
             ruta_operaciones=ruta_operaciones,
@@ -60,7 +60,7 @@ class Graficador:
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        # [LÍNEA CLAVE] Extracción de los escenarios evaluados para iteración de series
+        # Extracción de los escenarios evaluados para iteración de series
         casos_unicos = df_tiempos["caso"].unique()
 
         for caso in casos_unicos:
@@ -79,7 +79,7 @@ class Graficador:
         ax.grid(True, linestyle="--", alpha=0.6)
         ax.legend()
 
-        # [LÍNEA CLAVE] Guardado en alta resolución y liberación de memoria
+        # Guardado en alta resolución y liberación de memoria
         fig.savefig(ruta_salida, dpi=300, bbox_inches="tight")
         plt.close(fig)
         return ruta_salida
@@ -117,7 +117,7 @@ class Graficador:
                 label=str(caso),
             )
 
-        # [LÍNEA CLAVE] Formateo con separador de miles para legibilidad de grandes cifras
+        # Formateo con separador de miles para legibilidad de grandes cifras
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"{int(x):,}"))
         ax.set_title("Quick Sort: Tamaño (n) frente a Operaciones")
         ax.set_xlabel("Tamaño de la entrada (n)")
@@ -168,7 +168,7 @@ class Graficador:
         n_min = float(df_tiempos["tamano"].min())
         n_max = float(df_tiempos["tamano"].max())
 
-        # [LÍNEA CLAVE] Espacio muestral continuo para graficar curvas teóricas suaves
+        # Espacio muestral continuo para graficar curvas teóricas suaves
         n_teorico = np.linspace(n_min, n_max, 200)
 
         # ─── Peor caso: Ajuste asintótico O(n^2) ───
@@ -180,7 +180,7 @@ class Graficador:
         else:
             t_max_peor = float(t_max_peor_series.values[0])
 
-        # [LÍNEA CLAVE] Constante de proporcionalidad k: t = k * n^2  =>  k = t / n^2
+        # Constante de proporcionalidad k: t = k * n^2  =>  k = t / n^2
         k_peor = t_max_peor / (n_max**2)
 
         ax_peor.plot(
@@ -209,7 +209,7 @@ class Graficador:
         else:
             t_max_prom = float(t_max_prom_series.values[0])
 
-        # [LÍNEA CLAVE] Constante de proporcionalidad k: t = k * (n * log2(n))
+        # Constante de proporcionalidad k: t = k * (n * log2(n))
         k_prom = t_max_prom / (n_max * np.log2(n_max))
 
         ax_prom.plot(

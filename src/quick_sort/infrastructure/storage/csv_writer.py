@@ -24,7 +24,7 @@ class CsvWriter:
         Args:
             directorio_salida: Ruta de la carpeta donde se persistirán los CSVs.
         """
-        # [LÍNEA CLAVE] Normalización defensiva a Path para compatibilidad multiplataforma
+        # Normalización defensiva a Path para compatibilidad multiplataforma
         self.directorio_salida = Path(directorio_salida)
         self.directorio_salida.mkdir(parents=True, exist_ok=True)
 
@@ -48,7 +48,7 @@ class CsvWriter:
         ruta_operaciones = self.directorio_salida / "operaciones.csv"
 
         try:
-            # [LÍNEA CLAVE] Persistencia de tiempos: newline='' evita líneas vacías en Windows (PEP 305)
+            # Persistencia de tiempos: newline='' evita líneas vacías en Windows (PEP 305)
             with open(
                 ruta_tiempos, mode="w", newline="", encoding="utf-8"
             ) as f_tiempos:
@@ -62,12 +62,12 @@ class CsvWriter:
                             rt.tamano,
                             rt.caso,
                             rt.repeticion,
-                            # [LÍNEA CLAVE] Formato fijo a 8 decimales para evitar notación científica
+                            # Formato fijo a 8 decimales para evitar notación científica
                             f"{rt.tiempo_segundos:.8f}",
                         ]
                     )
 
-            # [LÍNEA CLAVE] Persistencia de operaciones elementales del algoritmo
+            # Persistencia de operaciones elementales del algoritmo
             with open(
                 ruta_operaciones, mode="w", newline="", encoding="utf-8"
             ) as f_ops:

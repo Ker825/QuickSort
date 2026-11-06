@@ -29,7 +29,7 @@ class QuickSort(SorterProtocol):
     def particionar(self, lista: list[int], inicio: int, fin: int) -> int:
         """Particiona la sublista lista[inicio:fin+1] alrededor del pivote.
 
-        Línea clave: El pivote se selecciona como el primer elemento (`lista[inicio]`).
+        El pivote se selecciona como el primer elemento (`lista[inicio]`).
         Los punteros convergen intercambiando elementos desubicados hasta que el pivote
         alcanza su posición ordenada final definitiva.
 
@@ -41,20 +41,20 @@ class QuickSort(SorterProtocol):
         Returns:
             int: Índice donde quedó ubicado definitivamente el pivote.
         """
-        # [LÍNEA CLAVE] Selección del pivote en la posición inicial del segmento
+        #  Selección del pivote en la posición inicial del segmento
         pivote = lista[inicio]
 
-        # [LÍNEA CLAVE] Puntero izquierdo (i): avanza hacia la derecha buscando elementos > pivote
+        #  Puntero izquierdo (i): avanza hacia la derecha buscando elementos > pivote
         i = inicio + 1
 
-        # [LÍNEA CLAVE] Puntero derecho (j): retrocede hacia la izquierda buscando elementos <= pivote
+        #  Puntero derecho (j): retrocede hacia la izquierda buscando elementos <= pivote
         j = fin
 
         # Ciclo principal de partición: itera mientras los punteros no se hayan cruzado
         while i < j:
             self.metricas.iteraciones += 1
 
-            # [LÍNEA CLAVE] Bucle de retroceso de j: busca el primer elemento menor al pivote
+            #  Bucle de retroceso de j: busca el primer elemento menor al pivote
             while j >= inicio + 1:
                 self.metricas.comparaciones += 1
                 if lista[j] >= pivote:
@@ -62,7 +62,7 @@ class QuickSort(SorterProtocol):
                 else:
                     break
 
-            # [LÍNEA CLAVE] Bucle de avance de i: busca el primer elemento mayor al pivote
+            #  Bucle de avance de i: busca el primer elemento mayor al pivote
             while i <= fin:
                 self.metricas.comparaciones += 1
                 if lista[i] <= pivote:
@@ -75,11 +75,11 @@ class QuickSort(SorterProtocol):
                 lista[i], lista[j] = lista[j], lista[i]
                 self.metricas.intercambios += 1
 
-        # [LÍNEA CLAVE] Ajuste correctivo si el puntero j se detuvo sobre un elemento mayor al pivote
+        #  Ajuste correctivo si el puntero j se detuvo sobre un elemento mayor al pivote
         if lista[j] > pivote:
             j -= 1
 
-        # [LÍNEA CLAVE] Reubicación final: intercambia el pivote con la posición j definitiva
+        #  Reubicación final: intercambia el pivote con la posición j definitiva
         lista[inicio], lista[j] = lista[j], lista[inicio]
         self.metricas.intercambios += 1
 
@@ -93,18 +93,18 @@ class QuickSort(SorterProtocol):
             inicio: Índice inferior del subrango a ordenar.
             fin: Índice superior inclusivo del subrango a ordenar.
         """
-        # [LÍNEA CLAVE] Registro de la llamada en la pila de recursión
+        #  Registro de la llamada en la pila de recursión
         self.metricas.llamadas_recursivas += 1
 
-        # [LÍNEA CLAVE] Caso Base: si la sublista tiene 0 o 1 elementos, ya está ordenada
+        #  Caso Base: si la sublista tiene 0 o 1 elementos, ya está ordenada
         if inicio >= fin:
             return
 
-        # [LÍNEA CLAVE] Fase Divide: particiona la lista y obtiene la posición final del pivote
+        #  Fase Divide: particiona la lista y obtiene la posición final del pivote
         posicion_pivote = self.particionar(lista, inicio, fin)
 
-        # [LÍNEA CLAVE] Fase Conquista: recursión simétrica sobre la partición izquierda
+        #  Fase Conquista: recursión simétrica sobre la partición izquierda
         self.ordenar(lista, inicio, posicion_pivote - 1)
 
-        # [LÍNEA CLAVE] Fase Conquista: recursión simétrica sobre la partición derecha
+        #  Fase Conquista: recursión simétrica sobre la partición derecha
         self.ordenar(lista, posicion_pivote + 1, fin)

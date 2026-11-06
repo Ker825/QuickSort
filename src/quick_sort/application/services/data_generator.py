@@ -29,13 +29,13 @@ class DataGenerator:
         Raises:
             TamanoInvalidoError: Si tamano es menor o igual a cero.
         """
-        # [LÍNEA CLAVE] Validación defensiva del tamaño de la muestra
+        # Validación defensiva del tamaño de la muestra
         if tamano <= 0:
             raise TamanoInvalidoError(
                 f"El tamaño de muestra debe ser positivo, recibido: {tamano}"
             )
 
-        # [LÍNEA CLAVE] Muestreo sin reemplazo sobre un universo amplio (evita duplicados)
+        # Muestreo sin reemplazo sobre un universo amplio (evita duplicados)
         return random.sample(range(tamano * 10), tamano)
 
     @staticmethod
@@ -60,7 +60,7 @@ class DataGenerator:
                 f"El tamaño de muestra debe ser positivo, recibido: {tamano}"
             )
 
-        # [LÍNEA CLAVE] Secuencia estrictamente creciente que maximiza el desbalance
+        # Secuencia estrictamente creciente que maximiza el desbalance
         return list(range(1, tamano + 1))
 
     @staticmethod
@@ -86,7 +86,7 @@ class DataGenerator:
             )
 
         base = list(range(1, tamano + 1))
-        # [LÍNEA CLAVE] Reordenamiento recursivo por mediana para lograr particiones simétricas
+        # Reordenamiento recursivo por mediana para lograr particiones simétricas
         return DataGenerator._construir_arbol_balanceado(base)
 
     @staticmethod
@@ -103,7 +103,7 @@ class DataGenerator:
         if len(arr) <= 2:
             return arr
 
-        # [LÍNEA CLAVE] Localización del elemento medio (mediana exacta o aproximada)
+        # Localización del elemento medio (mediana exacta o aproximada)
         medio = len(arr) // 2
         pivote = arr[medio]
 
@@ -113,9 +113,9 @@ class DataGenerator:
         # División equitativa de los elementos restantes
         mitad = len(resto) // 2
 
-        # [LÍNEA CLAVE] Construcción balanceada recursiva de mitades izquierda y derecha
+        # Construcción balanceada recursiva de mitades izquierda y derecha
         izq = DataGenerator._construir_arbol_balanceado(resto[:mitad])
         der = DataGenerator._construir_arbol_balanceado(resto[mitad:])
 
         # El pivote encabeza la partición para ser seleccionado en la posición inicial
-        return [pivote] + izq + der
+        return [pivote, *izq, *der]

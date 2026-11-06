@@ -49,22 +49,22 @@ class QuickSortVisual(VisualSorterProtocol):
             fin: Índice final inclusivo de la sublista.
             nodo: Nodo actual en el árbol de recursión (None en la llamada inicial).
         """
-        # [LÍNEA CLAVE] Inicialización de la raíz en la primera llamada de la recursión
+        # Inicialización de la raíz en la primera llamada de la recursión
         if nodo is None:
             self.reiniciar()
             self.raiz = NodoRecursion(sublista=lista[inicio : fin + 1].copy())
             nodo = self.raiz
 
-        # [LÍNEA CLAVE] Conteo de la llamada actual en la métrica global
+        # Conteo de la llamada actual en la métrica global
         self.metricas.llamadas_recursivas += 1
 
-        # [LÍNEA CLAVE] Identificación del caso base (0 o 1 elementos)
+        # Identificación del caso base (0 o 1 elementos)
         if inicio >= fin:
             nodo.es_caso_base = True
             nodo.resultado = lista[inicio : fin + 1].copy()
             return
 
-        # [LÍNEA CLAVE] Selección del pivote como primer elemento del subrango
+        # Selección del pivote como primer elemento del subrango
         pivote = lista[inicio]
         nodo.pivote = pivote
 
@@ -97,11 +97,11 @@ class QuickSortVisual(VisualSorterProtocol):
                 lista[i], lista[j] = lista[j], lista[i]
                 self.metricas.intercambios += 1
 
-        # [LÍNEA CLAVE] Corrección de posición de cruce
+        # Corrección de posición de cruce
         if lista[j] > pivote:
             j -= 1
 
-        # [LÍNEA CLAVE] Colocación definitiva del pivote en su posición ordenada
+        # Colocación definitiva del pivote en su posición ordenada
         lista[inicio], lista[j] = lista[j], lista[inicio]
         self.metricas.intercambios += 1
 
@@ -109,14 +109,14 @@ class QuickSortVisual(VisualSorterProtocol):
         nodo.posicion_pivote = j
         nodo.resultado = lista[inicio : fin + 1].copy()
 
-        # [LÍNEA CLAVE] Bifurcación del árbol: creación de ramas izquierda y derecha
+        # Bifurcación del árbol: creación de ramas izquierda y derecha
         nodo.izquierda = NodoRecursion(sublista=lista[inicio:j].copy())
         nodo.derecha = NodoRecursion(sublista=lista[j + 1 : fin + 1].copy())
 
-        # [LÍNEA CLAVE] Recursión sobre partición izquierda (elementos <= pivote)
+        # Recursión sobre partición izquierda (elementos <= pivote)
         self.ordenar(lista, inicio, j - 1, nodo.izquierda)
 
-        # [LÍNEA CLAVE] Recursión sobre partición derecha (elementos >= pivote)
+        # Recursión sobre partición derecha (elementos >= pivote)
         self.ordenar(lista, j + 1, fin, nodo.derecha)
 
     def obtener_arbol(self) -> NodoRecursion | None:

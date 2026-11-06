@@ -56,7 +56,7 @@ def ejecutar_benchmark_cli(
     console.rule("[bold #fa6464]1. Ejecución de Benchmarks de QuickSort[/bold #fa6464]")
 
     with console.status("[cyan]Ejecutando benchmarks de QuickSort...[/cyan]"):
-        # [LÍNEA CLAVE] Evaluación del Mejor Caso: particiones balanceadas O(n log n)
+        # Evaluación del Mejor Caso: particiones balanceadas O(n log n)
         runner.ejecutar_caso(
             "Mejor Caso",
             DataGenerator.generar_mejor_caso,
@@ -65,7 +65,7 @@ def ejecutar_benchmark_cli(
             al_iterar=notificar_progreso,
         )
 
-        # [LÍNEA CLAVE] Evaluación del Caso Promedio: distribución uniforme O(n log n)
+        # Evaluación del Caso Promedio: distribución uniforme O(n log n)
         runner.ejecutar_caso(
             "Promedio",
             DataGenerator.generar_caso_promedio,
@@ -74,7 +74,7 @@ def ejecutar_benchmark_cli(
             al_iterar=notificar_progreso,
         )
 
-        # [LÍNEA CLAVE] Evaluación del Peor Caso: partición degenerada O(n^2)
+        # Evaluación del Peor Caso: partición degenerada O(n^2)
         runner.ejecutar_caso(
             "Peor Caso",
             DataGenerator.generar_peor_caso,
