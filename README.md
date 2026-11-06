@@ -4,7 +4,7 @@ Implementación y experimentación del algoritmo **Quick Sort**, orientada al an
 
 El proyecto incluye la implementación del algoritmo, generación de datos para los experimentos, recopilación de métricas y generación de gráficas.
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 
 ```text
 Quick_Sort/
@@ -13,24 +13,29 @@ Quick_Sort/
 ├── output/
 │   ├── anything/               # Salidas auxiliares
 │   └── resultados/
-│       ├── cvs/                # Métricas exportadas (.csv)
+│       ├── csv/                # Métricas exportadas (.csv)
 │       │   └── .gitkeep
 │       └── graficas/           # Visualizaciones generadas (.png)
 │           └── .gitkeep
-── source/
-│   ├── algoritmo/              # Lógica de Quick Sort y métricas
-│   ├── experimento/            # Generación de datos y ejecución de experimentos
-│   └── graphics/               # Generación de visualizaciones
+├── src/
+│   └── quick_sort/             # Arquitectura Limpia (DDD / SOLID)
+│       ├── core/               # Configuración global y parámetros
+│       ├── domain/             # Enums, excepciones, modelos y protocolos
+│       ├── application/        # Algoritmos QuickSort, generador y runner
+│       ├── infrastructure/     # Persistencia CSV y graficador Matplotlib
+│       └── presentation/       # Componentes y CLI Rich
 ├── test/
-│   ├──test_data_generator.py
-│   └──test/test_quick_sort.py
-├── main.py                     # Punto de entrada del programa
+│   ├── test_data_generator.py
+│   ├── test_infraestructura.py
+│   └── test_quick_sort.py
+├── demo.py                     # Demostración interactiva visual con Rich
+├── main.py                     # Punto de entrada para benchmarks
 ├── pyproject.toml              # Configuración y dependencias del proyecto
 ├── uv.lock                     # Bloqueo determinista de dependencias
 └── README.md                   # Documentación del proyecto
 ```
 
-## ⚙️ Requisitos
+## Requisitos
 
 * **Python:** 3.12 o superior
 * **Gestor de paquetes:** [uv](https://docs.astral.sh/uv/)
@@ -39,7 +44,7 @@ Quick_Sort/
   * Matplotlib
   * Pandas
 
-## 🚀 Instalación
+## Instalación
 
 ### Clonar el repositorio
 
@@ -84,7 +89,7 @@ Después, instalar las dependencias:
 pip install matplotlib pandas
 ```
 
-## ▶️ Ejecución
+## Ejecución
 
 ### Con uv
 
@@ -100,7 +105,7 @@ Si el entorno virtual está activado:
 python main.py
 ```
 
-## 🧠 Sobre Quick Sort
+## Sobre Quick Sort
 Quick Sort es un algoritmo de ordenamiento basado en la estrategia de divide y vencerás.
 
 Su funcionamiento general consiste en:
@@ -144,7 +149,7 @@ Peor caso: puede llegar hasta $O(n)$ debido a la profundidad de la recursión.
 
 ```
 
-## 📊 Salidas generadas
+## Salidas generadas
 
 Al finalizar la ejecución, los resultados se almacenan automáticamente en sus respectivas rutas dentro de `output/resultados/`.
 
@@ -177,7 +182,7 @@ Se generan las siguientes gráficas:
 
 En conjunto, estas salidas permiten analizar experimentalmente el comportamiento de **Quick Sort** y contrastarlo con su complejidad temporal teórica.
 
-## 🧪 Experimentos
+## Experimentos
 Los experimentos se realizan utilizando diferentes tamaños de entrada y varias repeticiones para cada tamaño.
 
 Actualmente se utilizan los siguientes tamaños:
@@ -200,25 +205,26 @@ Llamadas recursivas.
 
 El tiempo se mide utilizando **`time.perf_counter()`**, y la generación de los datos se realiza antes de iniciar la medición para evitar que el tiempo necesario para generar las entradas afecte al resultado del algoritmo.
 
-## 🧩 Organización del código
+## Organización del código (Clean Architecture / DDD)
 
-El código fuente se divide en módulos según su responsabilidad:
+El código fuente se organiza bajo principios SOLID y arquitectura en capas dentro de `src/quick_sort/`:
 
-### `source/algoritmo/`
+### `core/`
+Configuración centralizada (`config.py`) para los parámetros del benchmark y rutas del sistema de archivos.
 
-Contiene la lógica relacionada con **Quick Sort**, incluyendo las operaciones necesarias para el algoritmo y el registro de métricas.
+### `domain/`
+Entidades puras, Value Objects (`metricas.py`, `nodo_recursion.py`, registros inmutables), enumeraciones tipadas y protocolos/interfaces (`SorterProtocol`).
 
-### `source/experimento/`
+### `application/`
+Servicios de aplicación que encapsulan la lógica de Quick Sort (`quick_sort.py`, `quick_sort_visual.py`), la generación matemática de datos (`data_generator.py`) y la orquestación desacoplada del benchmark (`experiment_runner.py`).
 
-Se encarga de preparar y ejecutar los experimentos, incluyendo la generación de datos y la coordinación de las pruebas.
+### `infrastructure/`
+Persistencia y ETL de archivos CSV (`storage/`) y renderizado de figuras analíticas con Matplotlib (`visualization/`).
 
-### `source/graphics/`
+### `presentation/`
+Componentes visuales y terminal interactiva con Rich (`formatters/` y `cli/`).
 
-Contiene la lógica relacionada con la lectura de resultados y la generación de las gráficas.
-
-Esta separación busca mantener una estructura modular y facilitar el mantenimiento del proyecto.
-
-## 📄 Documentación
+## Documentación
 
 La documentación teórica y el material utilizado durante el desarrollo se encuentran en:
 
@@ -232,6 +238,6 @@ Los recursos destinados a la exposición del proyecto se encuentran en:
 presentation/
 ```
 
-## 📝 Licencia
+## Licencia
 
 Este proyecto se encuentra disponible para fines académicos y educativos.

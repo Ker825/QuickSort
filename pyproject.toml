@@ -3,7 +3,7 @@ name = "quick-sort"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.14"
 dependencies = [
     "matplotlib>=3.11.1",
     "pandas>=3.0.5",
@@ -21,10 +21,21 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"demo.py" = ["E402"]
+"main.py" = ["E402"]
 
 [tool.mypy]
+mypy_path = "src"
+explicit_package_bases = true
 python_version = "3.12"
 strict = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["test"]
 
 [dependency-groups]
 dev = [
